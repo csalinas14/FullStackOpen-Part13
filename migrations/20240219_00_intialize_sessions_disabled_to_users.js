@@ -17,6 +17,14 @@ module.exports = {
         allowNull: false,
         references: { model: 'users', key: 'id' },
       },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
     })
     await queryInterface.addColumn('users', 'disabled', {
       type: DataTypes.BOOLEAN,

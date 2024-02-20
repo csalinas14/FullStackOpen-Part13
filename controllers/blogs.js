@@ -6,6 +6,7 @@ const { Blog, User } = require('../models')
 const { SECRET } = require('../utils/config')
 
 //const tokenExtractor = require('../utils/middleware')
+const { checkActiveSession } = require('../utils/middleware')
 
 const tokenExtractor = (req, res, next) => {
   const authorization = req.get('authorization')
@@ -64,7 +65,7 @@ router.get('/', async (req, res) => {
   res.json(blogs)
 })
 
-router.post('/', tokenExtractor, async (req, res) => {
+router.post('/', tokenExtractor, checkActiveSession, async (req, res) => {
   console.log(req.body)
   const user = await User.findByPk(req.decodedToken.id)
   const blog = await Blog.create({ ...req.body, userId: user.id })
@@ -76,14 +77,20 @@ const blogFinder = async (req, res, next) => {
   next()
 }
 
-router.delete('/:id', blogFinder, tokenExtractor, async (req, res) => {
-  //const blog = await Blog.findByPk(req.params.id)
-  //console.log(blog)
-  const user = await User.findByPk(req.decodedToken.id)
-  if (req.blog && req.blog.userId == user.id) await req.blog.destroy()
-  else return res.status(401).json({ error: 'Incorrect user' })
-  res.status(204).end()
-})
+router.delete(
+  '/:id',
+  blogFinder,
+  tokenExtractor,
+  checkActiveSession,
+  async (req, res) => {
+    //const blog = await Blog.findByPk(req.params.id)
+    //console.log(blog)
+    const user = await User.findByPk(req.decodedToken.id)
+    if (req.blog && req.blog.userId == user.id) await req.blog.destroy()
+    else return res.status(401).json({ error: 'Incorrect user' })
+    res.status(204).end()
+  }
+)
 
 router.put('/:id', blogFinder, async (req, res) => {
   if (req.body.likes) {

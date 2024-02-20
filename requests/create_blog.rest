@@ -1,10 +1,10 @@
 POST http://localhost:3001/api/blogs HTTP/1.1
 content-type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTcwODI5Nzg1Mn0.4xRCLoCH-mdKgW8g-rh5BpzizZHT6E7IhYkoXJb2s9M
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTcwODQwODA1M30.Z_ts8OOgYpJYzphucvpBTlYnrlKgKo3ndF9rcx2siuE
 
 {
-  "author": "intern reporter",
-  "url": "www.cbs.com",
-  "title": "celeb scoop",
-  "year": 2016
+  "author": "dne reporter",
+  "url": "www.notreal.com",
+  "title": "N/A",
+  "year": 2009
 }

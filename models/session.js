@@ -15,6 +15,11 @@ Session.init(
       type: DataTypes.STRING,
       unique: true,
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: { model: 'users', key: 'id' },
+    },
   },
   {
     sequelize,
@@ -23,3 +28,5 @@ Session.init(
     modelName: 'session',
   }
 )
+
+module.exports = Session

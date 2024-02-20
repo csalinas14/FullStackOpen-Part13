@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const { tokenExtractor } = require('../utils/middleware')
+const { tokenExtractor, checkActiveSession } = require('../utils/middleware')
 
 const { User } = require('../models')
 const ReadingList = require('../models/readinglist')
@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
   return res.json(readingList)
 })
 
-router.put('/:id', tokenExtractor, async (req, res) => {
+router.put('/:id', tokenExtractor, checkActiveSession, async (req, res) => {
   console.log(req.body)
   const readingListBlog = await ReadingList.findByPk(req.params.id)
   const user = await User.findByPk(req.decodedToken.id)
