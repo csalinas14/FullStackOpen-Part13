@@ -2,28 +2,25 @@ const { Model, DataTypes } = require('sequelize')
 
 const { sequelize } = require('../utils/db')
 
-class User extends Model {}
-
-User.init(
+class ReadingList extends Model {}
+ReadingList.init(
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    username: {
-      type: DataTypes.STRING,
-      unique: true,
+    blogId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-      validate: {
-        isEmail: true,
-      },
+      references: { model: 'blogs', key: 'id' },
     },
-    name: {
-      type: DataTypes.STRING,
+    userId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+      references: { model: 'users', key: 'id' },
     },
-    disabled: {
+    read: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
@@ -31,9 +28,9 @@ User.init(
   {
     sequelize,
     underscored: true,
-    timestamps: true,
-    modelName: 'user',
+    timestamps: false,
+    modelName: 'readinglist',
   }
 )
 
-module.exports = User
+module.exports = ReadingList

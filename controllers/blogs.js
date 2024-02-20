@@ -5,6 +5,8 @@ const { Op } = require('sequelize')
 const { Blog, User } = require('../models')
 const { SECRET } = require('../utils/config')
 
+//const tokenExtractor = require('../utils/middleware')
+
 const tokenExtractor = (req, res, next) => {
   const authorization = req.get('authorization')
   console.log(authorization)

@@ -2,6 +2,6 @@ POST http://localhost:3001/api/users HTTP/1.1
 content-type: application/json
 
 {
-  "username": "no",
-  "name": "SuperUser"
+  "username": "hacker@hotmail.com",
+  "name": "disabled tester"
 }
